@@ -15,8 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "RSACommon.hh"
-
 #ifndef RSAPUBLICHALF_HH_
 #define RSAPUBLICHALF_HH_ FOO
 

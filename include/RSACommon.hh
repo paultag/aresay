@@ -20,8 +20,13 @@
 #ifndef RSACOMMON_HH_
 #define RSACOMMON_HH_ FOO
 
+#include "RSAPrivateHalf.hh"
+#include "RSAPublicHalf.hh"
+
 #define String std::string
 
 int powerMod( int x, int n, int mod );
+RSAPrivateHalf * getRSAPrivateHalfFromFile( String fpath );
+RSAPublicHalf  * getRSAPublicHalfFromFile(  String fpath );
 
 #endif
