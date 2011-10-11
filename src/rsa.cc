@@ -59,7 +59,7 @@ String readStdin() {
 	
 	while(std::cin) {
 		getline(std::cin, input_line);
-		ret += input_line;
+		ret += input_line + "\n";
 	}
 	
 	return ret;
