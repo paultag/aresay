@@ -22,11 +22,6 @@
 
 #define String std::string
 
-static const String base64_chars = 
-	"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	"abcdefghijklmnopqrstuvwxyz"
-	"0123456789+/";
-
 int powerMod( int x, int n, int mod );
 
 #endif
