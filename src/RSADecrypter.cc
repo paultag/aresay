@@ -49,5 +49,6 @@ int RSADecrypter::decrypt( int Y ) {
 int RSADecrypter::decrypt( int Y, int off ) {
 	int ret = this->decrypt(Y);
 	ret = ret - off;
+	return ret;
 }
 

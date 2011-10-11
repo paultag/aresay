@@ -22,6 +22,9 @@
 #include "RSADecrypter.hh"
 
 #include <iostream>
+#include <sstream>
+#include <stdlib.h>
+#include <string.h>
 
 /**
  * Output a message to stdout, in our cute little format.
@@ -36,6 +39,32 @@ void printEncodedMessage( RSAEncrypter * e, String msg ) {
 	std::cout << "-1" << std::endl;
 }
 
+void printDecodedMessage( RSADecrypter * d, String msg ) {
+	std::stringstream ss(msg);
+	String s;
+	String output = "";
+	while (getline(ss, s, '|')) {
+		int i = atoi(s.c_str());
+		if ( i != -1 )
+			output += (char)d->decrypt(i);
+		else
+			break;
+	}
+	std::cout << output << std::endl;
+}
+
+String readStdin() {
+	String ret = "";
+	String input_line;
+	
+	while(std::cin) {
+		getline(std::cin, input_line);
+		ret += input_line;
+	}
+	
+	return ret;
+}
+
 int main ( int argc, char ** argv ) {
 	RSAPrivateHalf   privateHalf( 7193, 113, 109, 107 );
 	RSAPublicHalf *  publicHalf = privateHalf.getPublicHalf();
@@ -43,9 +72,37 @@ int main ( int argc, char ** argv ) {
 	RSAEncrypter     encrip(publicHalf);
 	RSADecrypter     decrip(&privateHalf);
 
-	String message = "Hello, World!";
+	String action = "";
+
+	if ( argc > 1 ) {
+		if ( strcmp(argv[1], "-d") == 0 ) {
+			action = "decode";
+		} else if ( strcmp(argv[1], "-e") == 0 ) {
+			action = "encode";
+		}
+	} else {
+		std::cout << "Error in usage" << std::endl;
+	}
 	
+	if ( action != "" ) {
+		String message = readStdin();
+		if ( strcmp(action.c_str(), "encode") == 0 ) {
+			printEncodedMessage(&encrip, message);
+		}
+		if ( strcmp(action.c_str(), "decode") == 0 ) { // Fix this crap
+			printDecodedMessage(&decrip, message);
+		}
+	}
+	
+	//printEncodedMessage(&encrip, message);
+	//printDecodedMessage(&decrip, message);
+
+	/*String message = "Hello, World!";
 	printEncodedMessage(&encrip, message);
+	
+	String ehlo =
+	"8605|4183|108|108|3402|6298|3599|3617|3402|2447|108|3331|11369|-1";
+	printDecodedMessage(&decrip, ehlo);*/
 	
 	return 0;
 }
