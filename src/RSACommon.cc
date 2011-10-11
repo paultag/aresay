@@ -26,6 +26,7 @@
 
 #include "RSAPrivateHalf.hh"
 #include "RSAPublicHalf.hh"
+#include "RSAEncrypter.hh"
 
 /**
  * Preform a exponent operation, working in modulo `mod`.
@@ -48,9 +49,45 @@ int powerMod( int x, int n, int mod ) {
     return ret;
 }
 
-std::map<String, String> * getHeaderFile( String fpath ) {
+String readStdin() {
+	String ret = "";
+	String input_line;
+	
+	while(std::cin) {
+		getline(std::cin, input_line);
+		ret += input_line + "\n";
+	}
+	
+	return ret;
+}
+
+int * encryptString( RSAEncrypter * e, String s ) {
+	int * ret = (int *)malloc(sizeof(int) * s.length());
+	for ( unsigned int i = 0; i < s.length(); ++i ) {
+		ret[i] = e->encrypt(s[i]);
+	}
+	return ret;
+}
+
+String decryptString(RSADecrypter * dec, String input) {
+	String ret;
+	std::stringstream ss(input);
 	String s;
 
+	while (getline(ss, s, '|')) {
+		int n = atoi(s.c_str());
+		if ( n == -1 )
+			break;
+
+		char c = dec->decrypt(n);
+		ret += c;
+	}
+	
+	return ret;
+}
+
+std::map<String, String> * getHeaderFile( String fpath ) {
+	String s;
 	String line;
 	std::map<String, String>  * ret = new std::map<String, String>();
 	std::ifstream myfile(fpath.c_str());
@@ -58,16 +95,14 @@ std::map<String, String> * getHeaderFile( String fpath ) {
 		while ( myfile.good() ) {
 			getline (myfile,line);
 			std::stringstream ss(line);
-			
+			/* <hack> */
 			getline(ss, s, ':');
 			String key = s;
-			
 			getline(ss, s, ':');
 			String val = s;
-			
+			/* </hack> */
 			std::pair<String, String> p(key, val);
 			ret->insert(p);
-			
 		}
 		myfile.close();
 	} else {

@@ -22,11 +22,17 @@
 
 #include "RSAPrivateHalf.hh"
 #include "RSAPublicHalf.hh"
+#include "RSAEncrypter.hh"
+#include "RSADecrypter.hh"
 
 #define String std::string
 
 int powerMod( int x, int n, int mod );
 RSAPrivateHalf * getRSAPrivateHalfFromFile( String fpath );
 RSAPublicHalf  * getRSAPublicHalfFromFile(  String fpath );
+String           readStdin();
+
+int * encryptString( RSAEncrypter * e,   String s );
+String decryptString(RSADecrypter * dec, String input);
 
 #endif

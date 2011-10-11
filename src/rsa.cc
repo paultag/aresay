@@ -23,6 +23,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <string.h>
 
 int main ( int argc, char ** argv ) {
 
@@ -39,7 +40,21 @@ int main ( int argc, char ** argv ) {
 		"/home/tag/rsa.priv");
 	RSADecrypter  * dec        = new RSADecrypter(privateHalf);
 
-	
+	if ( strcmp(argv[1], "encode") == 0 ) {
+		std::cout << "Type your message..." << std::endl;
+		String input = readStdin();
+		int * code = encryptString(enc, input);
+		for ( unsigned int i = 0; i < input.length(); ++i )
+			std::cout << code[i] << "|";
+		std::cout << -1 << std::endl;
+	}
+
+	if ( strcmp(argv[1], "decode") == 0 ) {
+		std::cout << "Type your message..." << std::endl;
+		String input = readStdin();
+		String s = decryptString(dec, input);
+		std::cout << s << std::endl;
+	}
 
 	return 0;
 }
