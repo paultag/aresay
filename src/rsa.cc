@@ -41,7 +41,7 @@ int main ( int argc, char ** argv ) {
 	RSADecrypter  * dec        = new RSADecrypter(privateHalf);
 
 	if ( strcmp(argv[1], "encode") == 0 ) {
-		std::cout << "Type your message..." << std::endl;
+		// std::cout << "Type your message..." << std::endl;
 		String input = readStdin();
 		int * code = encryptString(enc, input);
 		for ( unsigned int i = 0; i < input.length(); ++i )
@@ -50,7 +50,7 @@ int main ( int argc, char ** argv ) {
 	}
 
 	if ( strcmp(argv[1], "decode") == 0 ) {
-		std::cout << "Type your message..." << std::endl;
+		// std::cout << "Type your message..." << std::endl;
 		String input = readStdin();
 		String s = decryptString(dec, input);
 		std::cout << s; // << std::endl;
