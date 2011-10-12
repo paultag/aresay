@@ -26,6 +26,7 @@
 #include "RSADecrypter.hh"
 
 #define String std::string
+#define RSA_DELIM '.'
 
 int powerMod( int x, int n, int mod );
 RSAPrivateHalf * getRSAPrivateHalfFromFile( String fpath );

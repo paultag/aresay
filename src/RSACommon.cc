@@ -74,7 +74,7 @@ String decryptString(RSADecrypter * dec, String input) {
 	std::stringstream ss(input);
 	String s;
 
-	while (getline(ss, s, '|')) {
+	while (getline(ss, s, RSA_DELIM)) {
 		int n = atoi(s.c_str());
 		if ( n == -1 )
 			break;
@@ -82,7 +82,7 @@ String decryptString(RSADecrypter * dec, String input) {
 		char c = dec->decrypt(n);
 		ret += c;
 	}
-	
+
 	return ret;
 }
 
@@ -117,23 +117,22 @@ RSAPublicHalf  * getRSAPublicHalfFromFile( String fpath ) {
 	int M  = atoi(toks->find("M")->second.c_str() );
 	int pq = atoi(toks->find("pq")->second.c_str());
 	/* XXX: ERROR CHECKING */
-		
+
 	RSAPublicHalf * ret = new RSAPublicHalf(M, pq);
-	
 	return ret;
 }
 
 RSAPrivateHalf * getRSAPrivateHalfFromFile( String fpath ) {
 	std::map<String, String> * toks = getHeaderFile(fpath);
-	
+
 	int M  = atoi(toks->find("M")->second.c_str() );
 	int N  = atoi(toks->find("N")->second.c_str() );
 	int p  = atoi(toks->find("P")->second.c_str() );
 	int q  = atoi(toks->find("Q")->second.c_str() );
 	/* XXX: ERROR CHECKING */
-	
+
 	RSAPrivateHalf * ret = new RSAPrivateHalf(M, N, p, q);
-	
+
 	return ret;
 }
 

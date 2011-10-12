@@ -45,7 +45,7 @@ int main ( int argc, char ** argv ) {
 		String input = readStdin();
 		int * code = encryptString(enc, input);
 		for ( unsigned int i = 0; i < input.length(); ++i )
-			std::cout << code[i] << "|";
+			std::cout << code[i] << RSA_DELIM;
 		std::cout << -1 << std::endl;
 	}
 
@@ -53,7 +53,7 @@ int main ( int argc, char ** argv ) {
 		std::cout << "Type your message..." << std::endl;
 		String input = readStdin();
 		String s = decryptString(dec, input);
-		std::cout << s << std::endl;
+		std::cout << s; // << std::endl;
 	}
 
 	return 0;
