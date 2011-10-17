@@ -1,2 +1,9 @@
 #!/bin/bash
-base64 -d | rsa decode | base64 -d | gunzip
+
+if [ "x" != "x$1" ]; then
+	fd=$1
+else
+	fd=-
+fi
+
+cat $fd | base64 -d | rsa decode | base64 -d | gunzip
