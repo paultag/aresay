@@ -1,0 +1,2 @@
+#!/bin/bash
+gzip | base64 | rsa encode | base64
