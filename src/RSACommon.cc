@@ -107,6 +107,7 @@ std::map<String, String> * getHeaderFile( String fpath ) {
 		myfile.close();
 	} else {
 		std::cerr << "File not found" << std::endl;
+		throw -1;
 	}
 	return ret;
 }
