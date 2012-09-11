@@ -33,11 +33,11 @@ int main ( int argc, char ** argv ) {
 	}
 
 	RSAPublicHalf  * publicHalf  = getRSAPublicHalfFromFile(
-		"/home/tag/rsa.pub");
+		"/home/tag/.rsa/rsa.pub");
 	RSAEncrypter  * enc        = new RSAEncrypter(publicHalf);
 
 	RSAPrivateHalf * privateHalf = getRSAPrivateHalfFromFile(
-		"/home/tag/rsa.priv");
+		"/home/tag/.rsa/rsa.priv");
 	RSADecrypter  * dec        = new RSADecrypter(privateHalf);
 
 	if ( strcmp(argv[1], "encode") == 0 ) {
